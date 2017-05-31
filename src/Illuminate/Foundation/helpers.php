@@ -573,16 +573,16 @@ if (! function_exists('mix')) {
             $path = "/{$path}";
         }
 
-        if ($manifestDirectory && ! starts_with($manifestDirectory, '/')) {
-            $manifestDirectory = "/{$manifestDirectory}";
+        if ($manifestDirectory && ! starts_with($manifestDirectory, DIRECTORY_SEPARATOR)) {
+            $manifestDirectory = DIRECTORY_SEPARATOR."{$manifestDirectory}";
         }
 
-        if (file_exists(public_path($manifestDirectory.'/hot'))) {
+        if (file_exists(public_path($manifestDirectory.DIRECTORY_SEPARATOR.'hot'))) {
             return new HtmlString("//localhost:8080{$path}");
         }
 
         if (! $manifest) {
-            if (! file_exists($manifestPath = public_path($manifestDirectory.'/mix-manifest.json'))) {
+            if (! file_exists($manifestPath = public_path($manifestDirectory.DIRECTORY_SEPARATOR.'mix-manifest.json'))) {
                 throw new Exception('The Mix manifest does not exist.');
             }
 
