@@ -2,7 +2,6 @@
 
 namespace Illuminate\Tests\Foundation;
 
-use Exception;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Foundation\Application;
@@ -13,6 +12,14 @@ class FoundationHelpersTest extends TestCase
     public function tearDown()
     {
         m::close();
+    }
+
+    public function setUp() {
+        register_shutdown_function(function() {
+            if(file_exists(public_path('mix-manifest.json'))) {
+                unlink(public_path('mix-manifest.json'));
+            }
+        });
     }
 
     public function testCache()
